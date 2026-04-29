@@ -1,6 +1,11 @@
 from flask import Flask, render_template, request
 import requests
 
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
 app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
@@ -9,9 +14,13 @@ def home():
     if request.method == 'POST':
         city = request.form.get('city')
         if city:
-            api_key = '097c694a88bb19a9fe5276f182ba8ef3'  # Replace with your OpenWeatherMap API key
+            api_key = os.getenv("API_KEY")  # Replace with your OpenWeatherMap API key
+            print("API KEY:", api_key, flush=True)
+            
             url = f'https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric'
             response = requests.get(url)
+
+            print(response.text)
             if response.status_code == 200:
                 data = response.json()
                 weather_data = {
