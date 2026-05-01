@@ -39,7 +39,7 @@ jobs:
 
       - name: Tag image
         run: |
-          docker tag weather-app:ci ${{ secrets.DOCKER_USERNAME }}/weather-app:tagname
+          docker tag weather-app:ci ${{ secrets.DOCKER_USERNAME }}/weather-app:latest
 
       - name: Push image
         run: |
