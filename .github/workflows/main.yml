@@ -26,7 +26,7 @@ jobs:
         run: |
           python -m py_compile app.py
 
-      name: CI-CD Docker
+        name: CI-CD Docker
 
 on:
   push:
@@ -39,9 +39,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
@@ -49,7 +46,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker image
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/weather-app:latest .
+        run: docker build -t pawangardas/weather-app:latest .
 
       - name: Push image
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/weather-app:latest
+        run: docker push pawangardas/weather-app:latest
