@@ -26,27 +26,14 @@ jobs:
         run: |
           python -m py_compile app.py
 
-        name: CI-CD Docker
-
-on:
-  push:
-    branches: [ main ]
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
+          username: pawangardas
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker image
         run: docker build -t pawangardas/weather-app:latest .
 
-      - name: Push image
+      - name: Push Docker image
         run: docker push pawangardas/weather-app:latest
