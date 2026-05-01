@@ -32,3 +32,15 @@ jobs:
       - name: Build Docker image
         run: |
           docker build -t weather-app:ci .
+
+                - name: Login to Docker Hub
+        run: |
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      - name: Tag image
+        run: |
+          docker tag weather-app:ci ${{ secrets.DOCKER_USERNAME }}/weather-app:latest
+
+      - name: Push image
+        run: |
+          docker push ${{ secrets.DOCKER_USERNAME }}/weather-app:latest
